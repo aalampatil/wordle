@@ -22,7 +22,7 @@ function Result() {
         ) : (
           <div>
             <p>You Lost</p>
-            <p>the word is :{word}</p>
+            <p>The word is :{word}</p>
           </div>
         )}
       </div>

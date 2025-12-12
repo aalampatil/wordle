@@ -3,7 +3,7 @@ import TypingRow from "./TypingRow";
 import EmptyRow from "./EmptyRow.jsx";
 import { WordContext } from "../../context/Context.jsx";
 import CheckedRow from "./CheckedRow";
-import Keyboard from "../Keyboard.jsx";
+import Keyboard from "../keyboard/Keyboard.jsx";
 
 function Board() {
   const { guesses, currentG, isCorrect, isPresent } = useContext(WordContext);

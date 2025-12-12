@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { WordContext } from "../context/Context";
+import { WordContext } from "../../context/Context";
 
 function Button({char, handleKeyPress, disable}) {
   const {isCorrect, isPresent} = useContext(WordContext)

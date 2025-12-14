@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { WordContext } from "../../context/Context.jsx";
 import Button from "./Button";
 import { FaDeleteLeft } from "react-icons/fa6";
@@ -12,10 +12,12 @@ function Keyboard() {
     word,
     setIsPresent,
     gameOver,
-    setChecked
+    setChecked,
   } = useContext(WordContext);
-  const [disable, setDisable] = useState(false);
 
+  const currentGRef = useRef("");
+  //using reference of currentG because useEffect re render page, which can result in stale state(old state)
+  const [disable, setDisable] = useState(false);
 
   const handleKeyPress = (key) => {
     setCurrentG((prev) => {
@@ -31,31 +33,70 @@ function Keyboard() {
     });
   };
 
-  const compare = () => {
-    
+    const compare = () => {
+    // console.log("comparing");
+    // console.log({currentG}, currentG.length);
     
     if (currentG.length !== 5) return;
     const results = [];
     const matchResult = [];
-
+  
+    
     for (let i = 0; i < 5; i++) {
       results.push(word[i].toUpperCase() === currentG[i]);
       const c = currentG[i];
       const exist = word.includes(c);
       matchResult.push(exist && !results[i]);
     }
-
+    
+  
     setIsCorrect((prev) => [...prev, results]);
     setIsPresent((prev) => [...prev, matchResult]);
     setGuesses((prev) => [...prev, currentG]);
     setCurrentG("");
     setDisable(false);
-    setChecked(true)
+    setChecked(true);
   };
+
+  useEffect(() => {
+   
+
+    const handler = (event) => {
+      console.log(event.key);
+      if(event.key === "Backspace"){
+         remove();
+         return;
+      }
+      
+      //do not directly use state to compare anything and as condition to run something,
+      //because it might be behind the actual state, better use useRef
+      if(event.key === "Enter" && currentGRef.current.length === 5){
+        console.log({currentGRef});
+        
+         return compare();
+      }
+
+      if (!/^[a-z]$/i.test(event.key)) return;
+      const keyDown = event.key.toUpperCase();
+      setCurrentG((prev) => {
+        if (prev.length >= 5) return prev;
+        return prev + keyDown; //+= can cause bugs
+      });
+    };
+
+    window.addEventListener("keydown", handler);
+
+    return ()=> {
+      //after adding event listener, you must remove event listener,even if it works
+      //because it can cause memory leaks
+      window.removeEventListener("keydown", handler)
+    }
+  }, [currentG]);
 
   useEffect(() => {
     //console.log(currentG);
     setDisable(currentG.length === 5);
+    currentGRef.current = currentG;
   }, [currentG]);
 
   return gameOver ? (

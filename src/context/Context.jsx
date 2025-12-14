@@ -37,7 +37,7 @@ export const WordContextProvider = ({ children }) => {
     if (guesses.length === 6 && currentG !== word) {
       setGameOver(true);
     }
-    console.log(gameOver);
+    //console.log(gameOver);
     
   },[guesses])
 

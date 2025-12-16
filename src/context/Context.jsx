@@ -54,7 +54,7 @@ export const WordContextProvider = ({ children }) => {
     gameOver,
     setGameOver,
     checked,
-    setChecked
+    setChecked,
   };
 
   return <WordContext.Provider value={value}>{children}</WordContext.Provider>;

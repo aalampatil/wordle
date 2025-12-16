@@ -13,9 +13,13 @@ function Result({ show }) {
     result = "lost";
   }
 
+  const handleClick = () => {
+      window.location.reload();
+  }
+
   return (
     <div
-      className={`mx-52 rounded-md absolute inset-0 flex items-center justify-center border-2 border-white bg-black/60 backdrop-blur-md z-[9999]`}
+      className={`mx-52 rounded-md absolute inset-0 flex flex-col items-center justify-center border-2 border-white bg-black/60 backdrop-blur-md z-[9999]`}
     >
       <div
         className="bg-black/60 backdrop-blur-sm h-[250px] w-[250px] px-6 py-4 rounded-xl text-white text-2xl flex flex-col items-center justify-center gap-4"
@@ -30,10 +34,14 @@ function Result({ show }) {
           </div>
         )}
       </div>
+
+      <div>
+        <button className="text-white border-2" onClick={handleClick}>New Game</button>
+      </div>
     </div>
   );
 }
 
 export default Result;
 
-// export default Result
+// this container is relative to Board and is overlay on board

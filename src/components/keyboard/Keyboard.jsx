@@ -58,7 +58,7 @@ function Keyboard() {
 
   useEffect(() => {
     const handler = (event) => {
-      console.log(event.key);
+      //console.log(event.key);
       if(event.key === "Backspace"){
          remove();
          return;

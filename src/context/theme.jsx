@@ -10,7 +10,7 @@ export const ThemeContextProvider = ({ children }) => {
   const darkMode = () => {
     setThemeMode("dark");
   };
-  const value = { themeMode, lightMode, darkMode };
+  const value = { themeMode, setThemeMode, lightMode, darkMode };
   return (
     <themeContext.Provider value={value}>{children}</themeContext.Provider>
   );

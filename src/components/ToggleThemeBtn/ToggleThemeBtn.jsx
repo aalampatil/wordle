@@ -3,13 +3,22 @@ import { useThemeContext } from "../../context/theme";
 import { button, p } from "motion/react-client";
 
 function ToggleThemeBtn() {
-  const { themeMode, lightMode, darkMode } = useThemeContext();
+  const { themeMode, setThemeMode, lightMode, darkMode } = useThemeContext();
   const changeThemeMode = () => {
     if (themeMode === "light") darkMode();
     else lightMode();
   };
   
 
+  useEffect(() => {
+     const localMode = localStorage.getItem("themeMode");
+     console.log(localMode);
+     if(localMode) setThemeMode(localMode);
+  }, [])
+  
+  useEffect(() => {
+    localStorage.setItem("themeMode", themeMode)
+  },[themeMode])
 
   return (
     <button

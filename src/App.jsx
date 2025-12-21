@@ -1,32 +1,33 @@
-import "./App.css";
-import Board from "./components/board/Board.jsx";
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer/Footer.jsx";
-import Result from "./components/Result.jsx";
-import { useContext, useEffect } from "react";
-import { WordContext } from "./context/Context.jsx";
-import { useThemeContext } from "./context/theme.jsx";
-//created a seperate folder for frontend as moving to backend
-function App() {
-  const {gameOver} = useContext(WordContext);
-  const {themeMode} = useThemeContext()
+import { useEffect } from "react";
+import { useThemeContext } from "./context/Theme.jsx";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useAuthContext } from "./context/Auth.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 
-  useEffect(()=>{
-    document.querySelector('html').classList.remove("light", "dark")
-    document.querySelector('html').classList.add(themeMode)
-  },[themeMode])
+function App() {
+  const { themeMode, loading } = useThemeContext();
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    document.querySelector("html").classList.remove("light", "dark");
+    document.querySelector("html").classList.add(themeMode);
+  }, [themeMode]);
+
+  if(loading) return <p> loading page...</p>
 
   return (
-    <div className="bg-white dark:bg-neutral-900 w-[100%] min-h-screen">
-      <Navbar />
-      <div className="flex flex-col gap-0 relative">
-      <Board />
-      {gameOver && <Result show={gameOver} />}
-      </div>
-      <Footer />
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={user ? <HomePage /> : <Navigate to={"/login"} />}
+      />
+      <Route
+        path="/login"
+        element={!user ? <LoginPage /> : <Navigate to={"/"} />}
+      />
+    </Routes>
   );
 }
-
 
 export default App;

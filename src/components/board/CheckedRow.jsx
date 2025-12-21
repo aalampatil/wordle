@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Tile from "./Tile";
-import { WordContext } from "../../context/Context";
+import { WordContext } from "../../context/Word";
 
 function CheckedRow({ word, isCorrect, isPresent }) {
   const {checked} = useContext(WordContext)

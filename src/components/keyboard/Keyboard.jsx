@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { WordContext } from "../../context/Context.jsx";
+import { WordContext } from "../../context/Word.jsx";
 import Button from "./Button";
 import { FaDeleteLeft } from "react-icons/fa6";
 

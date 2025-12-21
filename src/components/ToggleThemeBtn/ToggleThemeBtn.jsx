@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useThemeContext } from "../../context/theme";
+import { useThemeContext } from "../../context/Theme";
 
 function ToggleThemeBtn() {
   const { themeMode, setThemeMode, lightMode, darkMode } = useThemeContext();
@@ -11,7 +11,7 @@ function ToggleThemeBtn() {
 
   useEffect(() => {
     const localMode = localStorage.getItem("themeMode"); //json.parse -> json to string
-    console.log(localMode);
+    //console.log(localMode);
     if (localMode) setThemeMode(localMode);
   }, []);
 

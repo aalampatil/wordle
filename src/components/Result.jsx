@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { WordContext } from "../context/Context";
+import { WordContext } from "../context/Word";
 
 function Result({ show }) {
   const { word, guesses } = useContext(WordContext);

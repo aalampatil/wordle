@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import TypingRow from "./TypingRow";
 import EmptyRow from "./EmptyRow.jsx";
-import { WordContext } from "../../context/Context.jsx";
+import { WordContext } from "../../context/Word.jsx";
 import CheckedRow from "./CheckedRow";
 import Keyboard from "../keyboard/Keyboard.jsx";
 

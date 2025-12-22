@@ -5,6 +5,7 @@ const authContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [authStatus, setAuthStatus] = useState(false)
   const [loading, setLoading] = useState(true);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -27,6 +28,7 @@ export const AuthContextProvider = ({ children }) => {
       //console.log(response.data);      
       if(response.data.success) {
         setUser(response.data.data)
+        setAuthStatus(true)
       }       
     } catch (error) {
       console.log(error.message);
@@ -36,7 +38,7 @@ export const AuthContextProvider = ({ children }) => {
     }
   }
 
-  const value = { user, loading, backendUrl, googleAuth };
+  const value = { user, loading, backendUrl, googleAuth, authStatus };
 
   useEffect(() => {
     verified();

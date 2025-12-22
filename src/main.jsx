@@ -5,18 +5,42 @@ import App from "./App.jsx";
 import { WordContextProvider } from "./context/Word.jsx";
 import { ThemeContextProvider } from "./context/Theme.jsx";
 import { AuthContextProvider } from "./context/Auth.jsx";
-import { BrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomePage from "./pages/HomePage.jsx";
+import Protected from "./components/Protected.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 
-
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: (
+          <Protected authentication>
+            <HomePage />
+          </Protected>
+        ),
+      },
+      {
+        path: "/login",
+        element: (
+          <Protected authentication={false}>
+            <LoginPage />
+          </Protected>
+        ),
+      },
+    ],
+  },
+]);
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <ThemeContextProvider>
-      <WordContextProvider>
-        <AuthContextProvider>
-          <App />
-        </AuthContextProvider>
-      </WordContextProvider>
-    </ThemeContextProvider>
-  </BrowserRouter>
+  <ThemeContextProvider>
+    <WordContextProvider>
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
+    </WordContextProvider>
+  </ThemeContextProvider>
 );
